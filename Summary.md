@@ -504,6 +504,24 @@ Bakhvalov, D. (2024). *Performance Analysis and Tuning on Modern CPUs* (2nd ed.)
 
 Intel Corporation. (2022). "Top-down Microarchitecture Analysis Method." *Intel VTune Profiler Performance Analysis Cookbook*. [Online]. Available: https://www.intel.com/content/www/us/en/docs/vtune-profiler/cookbook/2023-0/top-down-microarchitecture-analysis-method.html
 
+Park, J., Choi, B. & Jang, S. Dynamic Analysis Method for Concurrency Bugs in Multi-process/Multi-thread Environments. Int J Parallel Prog 48, 1032–1060 (2020). https://doi.org/10.1007/s10766-020-00661-3 [Online] https://link.springer.com/article/10.1007/s10766-020-00661-3#citeas
+
+Sarah L. Harris, David Harris, 7 - Microarchitecture, Editor(s): Sarah L. Harris, David Harris,Digital Design and Computer Architecture,Morgan Kaufmann,2022,Pages 392-497,ISBN 9780128200643, https://doi.org/10.1016/B978-0-12-820064-3.00007-6.
+(https://www.sciencedirect.com/science/article/pii/B9780128200643000076)
+Abstract: This chapter discusses microarchitecture, particularly the design of three RISC-V processors: single-cycle, multicycle, and pipelined RISC-V processors that perform a subset of RISC-V instructions. It also discusses processor performance, dealing with data and control hazards, and advanced microarchitecture techniques, such as superscalar and out-of-order processors.
+Keywords: microarchitecture; single-cycle; multicycle; pipelined; processor; RISC-V; hazards; advanced microarchitecture [Online] https://www.sciencedirect.com/science/chapter/monograph/abs/pii/B9780128200643000076 
+
+S. Saini, H. Jin, R. Hood, D. Barker, P. Mehrotra and R. Biswas, "The impact of hyper-threading on processor resource utilization in production applications," 2011 18th International Conference on High Performance Computing, Bangalore, 2011, pp. 1-10, doi: 10.1109/HiPC.2011.6152743. keywords: {Radiation detectors;Instruction sets;Phasor measurement units;Computational fluid dynamics;Hardware;Performance gain;Bandwidth;Simultaneous Multi-Threading (SMT);Hyper-Threading (HT);Intel's Nehalem micro-architecture;Intel Westmere-EP;Computational Fluid Dynamics (CFD);SGI Altix ICE 8400EX;Performance Tools;Benchmarking;Performance Evaluation},[Online] https://ieeexplore.ieee.org/abstract/document/6152743?casa_token=HZ8_L0yUHaEAAAAA:QAESxOTl6EltWOzKy66pHc_AVfaKCaa_T6CFzJGlg4JqFlCOx7CK26ybcIIWoupXw0DCXemINw
+
+Thomas Sterling, Matthew Anderson, Maciej Brodowicz, Chapter 6 - Symmetric Multiprocessor Architecture, Editor(s): Thomas Sterling, Matthew Anderson, Maciej Brodowicz, High Performance Computing, Morgan Kaufmann, 2018, Pages 191-224, ISBN 9780124201583, https://doi.org/10.1016/B978-0-12-420158-3.00006-X.
+(https://www.sciencedirect.com/science/article/pii/B978012420158300006X)
+Abstract: Symmetric multiprocessing is the most widespread class of shared-memory compute nodes. While nodes of this type can be used as self-contained computers, they serve more frequently as a building block of larger systems such as clusters. This chapter discusses typical components of a symmetric multiprocessing node and their functions, parameters, and associated interfaces. An updated version of Amdahl's law that takes overhead in account is introduced, along with other formulae determining peak computational performance of a node and the impact of memory hierarchy on a metric known as “cycles per instruction”. Finally, a number of commonly used industry-standard interfaces are discussed that permit attachment of additional peripheral devices, expansion boards, and performing input/output functions, and inspection of a node's internal state.
+Keywords: Amdahl's law; Branch prediction; Cache-coherent computer; CPI; Ethernet; ILP; InfiniBand; Instruction mix; JTAG; Memory hierarchy; Memory wall; Multithreading; PCI express; Processor cache; Processor core; Processor socket; SATA; Shared-memory node; USB [Online] https://www.sciencedirect.com/science/chapter/monograph/abs/pii/B978012420158300006X 
+
 Yasin, A. (2020). *A Top-Down Method for Performance Analysis and Counters Architecture*. arXiv:2004.05628 [cs.PF]. https://arxiv.org/abs/2004.05628
 
 Intel Corporation. (2003). *Intel Hyper-Threading Technology: Technical User's Guide*. [Online]. Available: https://read.seas.harvard.edu/cs161/2022/pdf/intel-hyperthreading.pdf
+
+
+
+
