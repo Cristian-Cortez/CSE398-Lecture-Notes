@@ -139,67 +139,66 @@ This breakdown immediately tells you whether you should be thinking about instru
 
 ```mermaid
 block-beta
-  columns 32
+    columns 32
+    TMA["TMA Slots"]:32
 
-  TMA["TMA Slots"]:32
+    nonstall["Non-stalled"]:8
+    stall["Stalled"]:24
 
-  nonstall["Non-stalled"]:8
-  stall["Stalled"]:24
+    retire["Retiring"]:4
+    badspec["Bad Speculation"]:4
 
-  retire["Retiring"]:4
-  badspec["Bad Speculation"]:4
+    FB["Frontend Bound"]:8
+    BB["Backend Bound"]:16
 
-  FB["Frontend Bound"]:8
-  BB["Backend Bound"]:16
+    Base["Base/ Light micro ops"]:1
+    MS["Microcode  Sequencer"]:3
 
-  Base["Base Light micro ops"]:1
-  MS["Microcode Sequencer"]:3
+    BranchMiss["Branch Misprediction"]:2
+    MachineClear["Machine Clears"]:2
 
-  BranchMiss["Branch Misprediction"]:2
-  MachineClear["Machine Clears"]:2
+    FetchLat["Fetch Latency"]:4
+    FetchBand["Fetch Bandwidth"]:4
 
-  FetchLat["Fetch Latency"]:4
-  FetchBand["Fetch Bandwidth"]:4
+    CoreB["Core Bound"]:8
+    MemB["Memory Bound"]:8
 
-  CoreB["Core Bound"]:8
-  MemB["Memory Bound"]:8
+    FPArith["FP-Arithmetic"]:2
+    Other["Other"]:1
+    Assists["Assists"]:1
 
-  FPArith["FP-Arithmetic"]:2
-  Other["Other"]:1
-  Assists["Assists"]:1
+    space:4
 
-  space 4
+    itlb["iTLB Miss"]:2
+    icache["i-Cache Miss"]:1
+    branchrest["Branch Resteers"]:1
 
-  itlb["iTLB Miss"]:2
-  icache["i-Cache Miss"]:1
-  branchrest["Branch Resteers"]:1
+    fetchsrc1["Fetch src 1"]:2
+    fetchsrc2["Fetch src 2"]:2
 
-  fetchsrc1["Fetch src 1"]:2
-  fetchsrc2["Fetch src 2"]:2
+    divider["Divider"]:2
+    EPU["Execution Ports Utilization"]:6
 
-  divider["Divider"]:2
-  EPU["Execution Ports Utilization"]:6
+    StoreB["Store Bound"]:1
+    L1B["L1 Bound"]:1
+    L2B["L2 Bound"]:1
+    LNB["... Ln Bound"]:1
 
-  StoreB["Store Bound"]:1
-  L1B["L1 Bound"]:1
-  L2B["L2 Bound"]:1
-  LNB["Ln Bound"]:1
+    EMB["Ext. Memory Bound"]:4
 
-  EMB["Ext. Memory Bound"]:4
+    Scal["Scalar"]:1
+    Vec["Vector"]:1
 
-  Scal["Scalar"]:1
-  Vec["Vector"]:1
+    space:16
 
-  space 16
+    threePorts["3+ ports"]:2
+    halfPorts["1/2 ports"]:2
+    zeroPorts["0 ports"]:2
 
-  threePorts["3+ ports"]:2
-  halfPorts["1/2 ports"]:2
-  zeroPorts["0 ports"]:2
+    space:4
 
-  space 4
-
-  MemBand["MEM Bandwidth"]:2
-  MemLat["MEM Latency"]:2
+    MemBand["MEM Bandwidth"]:2
+    MemLat["MEM Latency"]:2
 ```
 
 ---
@@ -275,14 +274,14 @@ Core-bound issues are less common. They occur when resources are not sufficientl
 
 <details> 
    <summary><b>Example: Using Multiple Accumulators</b></summary>
-```C++
+```cpp
 double sum = 0;
 for (int i = 0; i < n; i++) {
     sum += data[i];
 }
 ```
 In this simple code snippet, we are getting the sum of a vector. However, each addition must wait for the previous one to finish. This creates a dependency on the previous sum.
-```C++
+```cpp
 double acc1 = 0, acc2 = 0;
 for (int i = 0; i < n; i += 2) {
     acc1 += data[i];     // Independent of acc2
@@ -352,18 +351,14 @@ A few ways to prevent these issues:
 
 <details> 
    <summary><b>Example: C++ Branch Hint Annotations</b></summary>
-```C++
-if (is_valid) [[likely]] {
-    // High-performance hot path
-} else [[unlikely]] {
-    // Less-likely cold path (error handling)
-}
-```
+  ```cpp
+  if (is_valid) [[likely]] {
+      // High-performance hot path
+  } else [[unlikely]] {
+      // Less-likely cold path (error handling)
+  }
+  ```
 </details>
-
-%%% [mfs]
-In C++, there are also branch hint annotations...
-%%%
 
 ---
 
