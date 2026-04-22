@@ -259,7 +259,7 @@ For memory-bound issues, which are the most common, there are several solutions 
   - Use batching/tiling to process data in chunks that fit into the L1/L2 cache to avoid frequent trips to RAM
   - Have more spatial locality by ensuring that data is stored contiguously in memory
 - Data Layout
-  - Make hot data smaller by using SoA, which is a [structure of arrays] (https://en.wikipedia.org/wiki/AoS_and_SoA)rather than an array of structures. 
+  - Make hot data smaller by using SoA, which is a [structure of arrays](https://en.wikipedia.org/wiki/AoS_and_SoA) rather than an array of structures. 
   - Use smaller data types if possible
   - Split structs into hot and cold structs.
     Rarely used data (cold) should be kept out of the main structure to keep frequently accessed data (hot) compact and cache-friendly.
@@ -364,7 +364,7 @@ A few ways to prevent these issues:
       // Less-likely cold path (error handling)
   }
   ```
-  
+
 </details>
 
 ---
