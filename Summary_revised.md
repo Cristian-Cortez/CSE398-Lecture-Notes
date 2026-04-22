@@ -274,24 +274,29 @@ Core-bound issues are less common. They occur when resources are not sufficientl
 
 <details> 
    <summary><b>Example: Using Multiple Accumulators</b></summary>
-```cpp
-double sum = 0;
-for (int i = 0; i < n; i++) {
-    sum += data[i];
-}
-```
-In this simple code snippet, we are getting the sum of a vector. However, each addition must wait for the previous one to finish. This creates a dependency on the previous sum.
-```cpp
-double acc1 = 0, acc2 = 0;
-for (int i = 0; i < n; i += 2) {
-    acc1 += data[i];     // Independent of acc2
-    acc2 += data[i + 1]; // Independent of acc1
-}
-double total_sum = acc1 + acc2;
-```
-In the revised code snippet, we split the work between two independent variables, so the CPU can compute them in the same clock cycle.
+  
+  ```cpp
+  double sum = 0;
+  for (int i = 0; i < n; i++) {
+      sum += data[i];
+  }
+  ```
+
+  In this simple code snippet, we are getting the sum of a vector. However, each addition must wait for the previous one to finish. This creates a dependency on the previous sum.
+
+  ```cpp
+  double acc1 = 0, acc2 = 0;
+  for (int i = 0; i < n; i += 2) {
+      acc1 += data[i];     // Independent of acc2
+      acc2 += data[i + 1]; // Independent of acc1
+  }
+  double total_sum = acc1 + acc2;
+  ```
+
+  In the revised code snippet, we split the work between two independent variables, so the CPU can compute them in the same clock cycle.
 </details>
-  - Use the -O3 flag
+
+- Use the -O3 flag
 
 > **A note about the -O3 flag:**
 > The compiler will perform helpful optimizations like loop unrolling and vectorization **ONLY** when it can ensure that it is fault-proof.
@@ -351,6 +356,7 @@ A few ways to prevent these issues:
 
 <details> 
    <summary><b>Example: C++ Branch Hint Annotations</b></summary>
+  
   ```cpp
   if (is_valid) [[likely]] {
       // High-performance hot path
@@ -358,6 +364,7 @@ A few ways to prevent these issues:
       // Less-likely cold path (error handling)
   }
   ```
+  
 </details>
 
 ---
