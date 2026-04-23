@@ -63,7 +63,7 @@ PMU events are able to show if the stall is due to a frontend or backend failure
   This is due to the fact that fixing the frontend will not alleviate the situation, since the backend bottlenecks the performance.
 
 ![Five Stage Pipeline Diagram](./images/pipeline.png)
-[^pipeline]
+[^2]
 
 The picture above gives a representation of the five stages in a pipeline. It is close to what you might have seen in a computer architecture class. These are the definitions of the stages:
 
@@ -82,6 +82,7 @@ Data is read during the memory stage and, if required, the memory is then commit
 The writeback and the memory stage can technically be combined into a single process, since it can be generalized to load and store memory.
 
 ![Timing Diagrams of Single Cycle and Pipelined Processor ](./images/writeback.png)
+[^3]
 
 A pipeline stage can be fetching instructions while another pipeline stage decodes or executes another instruction.
 In essence, multiple instructions can be processed at once.
@@ -123,7 +124,7 @@ is effectively doing a load, an add, and a store, so it may decode into 3 micro 
 TMA (Top-Down Microarchitecture Analysis) uses PMU events to estimate how the CPU’s pipeline slots are being used, then reports the result as fractions of total throughput.
 The idea is simple: every cycle has a limited number of pipeline slots where useful work could have happened, and TMA tells you where those slots went.
 
-![Pipeline stall flowchart](./images/hierarchy.png)[^hierarchy]
+![Pipeline stall flowchart](./images/hierarchy.png)[^1]
 
 At the top level, TMA groups pipeline slots into four buckets.
 (If you need more detail, you travel down the TMA hierarchy to break a broad category into more specific causes):
@@ -240,7 +241,7 @@ In the ideal cases, a majority of the instructions fall under this category, sin
 The question is how much of each category is considered “good” for a program.
 Intel recommends around 50% retiring with 20% backend bound for client or desktop applications, with lower ranges of 10 ~ 30% retiring for server, database, or distributed applications.
 
-![recommended category ranges by Intel](./images/ranges.png) [^ranges]
+![recommended category ranges by Intel](./images/ranges.png) [^1]
 
 ---
 
@@ -394,9 +395,7 @@ One catch is that not all runner machines are good benchmarking machines. Shared
 A good compromise is to treat CI benchmarks as a regression detector, rather than precise measurer.
 Whenever possible, you should run benchmarks on a dedicated self-hosted runner with stable hardware and running multiple iterations to weed out variations as best as possible.
 
-![GitLab pipeline graph](./images/gitlab.png)
-
-*Figure: Example GitLab CI/CD pipeline UI. Source: GitLab Docs, “CI/CD pipelines,”*
+![GitLab pipeline graph](./images/gitlab.png)[^4]
 
 This figure shows a simple staged GitLab pipeline in the GitLab UI.
 The pipeline has one job in the `build` stage, two parallel jobs in the `test` stage, one automatic deployment job in a `canary` stage, and one `deploy-to-production` job in the final production stage.
@@ -446,7 +445,7 @@ Among these, Parca stands out as a great open-source option.
 Over the years, processor speed has increased significantly, while memory speed hasn’t improved much.
 Memory latency has been introduced due to the memory performance falling behind.
 
-![Increasing gap in memory performance](./images/memory_graph.png)
+![Increasing gap in memory performance](./images/memory_graph.png) [^5]
 
 ### **How Memory Latency is Addressed**
 
@@ -462,9 +461,9 @@ Lastly, in the hardware, multi-level caches are used to reduce the need to bring
 
 ## Multithreading
 
-Similar to SMT, multithreading creates the ability to split work in a program among threads to create parallelism. By breaking a task into independent execution streams, we can theoretically process data much faster. A naive approach with multithreading is to create as many threads as possible, which may sound like it would create a huge speedup in performance. However, it is important to understand [Amdal’s law](https://en.wikipedia.org/wiki/Amdahl%27s_law), which explains that there are diminishing returns of performance as you increase the thread count. 
+Multithreading creates the ability to split work in a program among threads to create parallelism. By breaking a task into independent execution streams, we can theoretically process data much faster. A naive approach with multithreading is to create as many threads as possible, which may sound like it would create a huge speedup in performance. However, it is important to understand [Amdal’s law](https://en.wikipedia.org/wiki/Amdahl%27s_law), which explains that there are diminishing returns of performance as you increase the thread count.
 
-![comparison of speedup vs logarithmic parallelization](./images/amdals_law.png)
+![comparison of speedup vs logarithmic parallelization](./images/amdals_law.png)[^6]
 
 Here, you can see a comparison of speedup achieved with a logarithmic parallelization. The key represents the amount of the program that can be parallized. For example, if 50% of the program is parallelizable, the best possible speedup is 2x, no matter the number of threads, due to the constraints of the non parallelizable portion. Therefore, simply increasing the number of threads in a program will not always make it faster. 
 
@@ -842,7 +841,7 @@ Unlike regular multithreading, which is managed by software, simultaneous multit
 
 The key idea of SMT is that by having threads share caches and cores, it would use more of the resources and result in better performance.
 
-![SMT architecture diagram](./images/hyperthreading.png)
+![SMT architecture diagram](./images/hyperthreading.png)[^7]
 
 This is a diagram taken from Intel’s hyper-threading manual, which is their marketing term for SMT.
 They indicate that hyper-threading is very different in nature compared to dual cores.
@@ -970,7 +969,7 @@ In doing so, you might likely use a memory profiler to help you determine the so
 In this way, flame graphs are best treated as maps of likely hotspots that guide follow-up investigation. 
 For a good general explanation of how flame graphs are built and used, see [Brendan Gregg, "Flame Graphs"](https://www.brendangregg.com/flamegraphs.html) and [Brendan Gregg, "CPU Flame Graphs"](https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html).
 
-![An example of a Flame Graph](./images/flame.png)
+![An example of a Flame Graph](./images/flame.png) [^8]
 
 Example CPU flame graph. 
 Each box represents a function in a sampled call stack, and wider boxes indicate functions or code paths that appeared in more samples. 
@@ -985,7 +984,7 @@ Coz will indicate regions which would improve overall throughput if made faster,
 The opposite is also true, Coz can reveal that speeding up a region would barely improve end-to-end performance, and thus, you should stop focusing your energy on that region.
 For the project itself and the original paper, see [plasma-umass/coz on GitHub](https://github.com/plasma-umass/coz) and [Curtsinger and Berger, “Coz: Finding Code that Counts with Causal Profiling” (SOSP 2015)](https://dl.acm.org/doi/10.1145/2815400.2815409).
 
-![An example Causal Profile from Coz](./images/coz.png)
+![An example Causal Profile from Coz](./images/coz.png)[^9]
 
 The graphs above are a causal profile from paper defining Coz. The x-axis shows a hypothetical speedup of a source line, and the y-axis shows the predicted end-to-end program speedup. In this example, speeding up `a()` helps modestly, while speeding up `b()` does not improve overall performance. Adapted from [Curtsinger and Berger, “Coz: Finding Code that Counts with Causal Profiling” (SOSP 2015)](https://dl.acm.org/doi/10.1145/2815400.2815409).
 
@@ -1107,7 +1106,7 @@ Valgrind Developers. (n.d.). "Massif: a heap profiler." *Valgrind User Manual*. 
 
 Wikimedia Commons. (n.d.). "File:Fivestagespipeline.png." [Online]. Available: https://commons.wikimedia.org/wiki/File:Fivestagespipeline.png
 
-Wikipedia contributors. (n.d.). "Amdahl's law." *Wikipedia, The Free Encyclopedia*. [Online]. Available: https://en.wikipedia.org/wiki/Amdahl%27s_law
+Wikipedia contributors. (n.d.). "Amdahl's law." *Wikipedia, The Free Encyclopedia*. [Online]. Available: https://en.wikipedia.org/wiki/Amdahl's_law
 
 Wikipedia contributors. (n.d.). "AoS and SoA." *Wikipedia, The Free Encyclopedia*. [Online]. Available: https://en.wikipedia.org/wiki/AoS_and_SoA
 
@@ -1117,19 +1116,24 @@ Wikipedia contributors. (n.d.). "Cache (computing)." *Wikipedia, The Free Encycl
 
 Yasin, A. (2020). *A Top-Down Method for Performance Analysis and Counters Architecture*. arXiv:2004.05628 [cs.PF]. https://arxiv.org/abs/2004.05628
 
-Figure citations:
+--
+
+## Figure Citations
 
 [^1]: Intel Corporation, “Top-down Microarchitecture Analysis Method,” Intel® VTune™ Profiler Performance Analysis Cookbook, May 19, 2023. [Online]. Available: https://www.intel.com/content/www/us/en/docs/vtune-profiler/cookbook/2023-0/top-down-microarchitecture-analysis-method.html
 
-pipeline.png  
-Figure: Five-stage pipeline diagram. Source: Poil, "Instruction scheduling using a 5 stages pipeline," *Wikimedia Commons*. [Online]. Available: https://commons.wikimedia.org/wiki/File:Fivestagespipeline.png
+[^2]: Poil, “Instruction scheduling using a 5 stages pipeline,” Wikimedia Commons, May 14, 2005. [Online]. Available: https://commons.wikimedia.org/wiki/File:Fivestagespipeline.png
 
-gitlab.png  
-Figure: Example GitLab CI/CD pipeline UI. Source: GitLab, "CI/CD pipelines," *GitLab Docs*. [Online]. Available: https://docs.gitlab.com/ci/pipelines/
+[^3]: A. Fog, “The microarchitecture of Intel, AMD, and VIA CPUs: An optimization guide for assembly programmers and compiler makers,” in Software Optimization Resources, Elsevier, 2013, ch. 7. [Online]. Available: https://www.sciencedirect.com/science/article/pii/B9780123944245000070
 
-flame.png  
-Figure: Example CPU flame graph. Adapted from Gregg, B., "CPU Flame Graphs." [Online]. Available: https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html
+[^4]: Figure: Example GitLab CI/CD pipeline UI. Source: GitLab, “CI/CD pipelines,” GitLab Docs. [Online]. Available: https://docs.gitlab.com/ci/pipelines/
 
-coz.png  
-Figure: Example causal profile from Coz. Adapted from Curtsinger, C., and Berger, E. D. (2015). "Coz: Finding Code that Counts with Causal Profiling." *Proceedings of the 25th Symposium on Operating Systems Principles*. [Online]. Available: https://doi.org/10.1145/2815400.2815409
+[^5]: K. Yu, M. Kim, and J. Choi, “Memory-Tree Based Design of Optical Character Recognition in FPGA,” Electronics, vol. 12, no. 3, p. 754, 2023. doi: 10.3390/electronics12030754.
 
+[^6]: Daniels220, “AmdahlsLaw.svg,” Wikimedia Commons, Apr. 13, 2008. [Online]. Available: https://commons.wikimedia.org/wiki/File:AmdahlsLaw.svg
+
+[^7]: Intel Corporation, Intel® Hyper-Threading Technology Technical User’s Guide, Jan. 2003, p. 13. [Online]. Available: https://read.seas.harvard.edu/cs161/2022/pdf/intel-hyperthreading.pdf
+
+[^8]: B. Gregg, “CPU Flame Graphs.” [Online]. Available: https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html
+
+[^9]: C. Curtsinger and E. D. Berger, “Coz: Finding Code that Counts with Causal Profiling,” in Proc. 25th Symposium on Operating Systems Principles (SOSP), 2015. [Online]. Available: https://doi.org/10.1145/2815400.2815409
