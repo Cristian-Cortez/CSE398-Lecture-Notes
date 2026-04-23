@@ -1014,7 +1014,7 @@ You should use this tool or other similar tools to reduce your program’s size 
 See how to use Valgrind: [Valgrind Massif Manual](https://valgrind.org/docs/manual/ms-manual.html).
 See how to use heaptrack: [Heaptrack Manual](Ubuntu Manpage: heaptrack - heap memory profiler for linux, command line utility).
 
-### **Summary of Useful Tools (TLDR)**
+### Summary of Useful Tools (TLDR)
 
 If you do not know where time is going, start with a general profiler such as `perf`, VTune, uProf, or Instruments depending on your platform and hardware.
 If you want a clearer visual picture of hotspots, use a flame graph.
@@ -1022,6 +1022,7 @@ If you want to know which optimization would actually improve overall throughput
 If the problem looks like waiting, blocking, or system-level interference, use eBPF-based tools such as GAPP.
 If the slowdown may be caused by heap growth or allocation behavior, switch to memory profiling tools.
 At the least, the goal is to be aware of the many tools at your disposal. Ideally, output from these tools will help advise your next steps in the diagnosing process as a performance engineer.
+
 ---
 
 ## References
