@@ -17,7 +17,7 @@ In this document, we are going to give an overview of the tools that can be util
 
 ## Performance Monitoring Units
 
-PMUs (Performance Monitoring Units) are parts that are integrated into the hardware to track hardware events such as cache misses or branch mispredictions. [General Overview of Cache Miss](https://en.wikipedia.org/wiki/Cache_(computing)#CACHE-MISS) [General Overview of Branch Prediction](https://en.wikipedia.org/wiki/Branch_predictor). 
+PMUs (Performance Monitoring Units) are parts that are integrated into the hardware to track hardware events such as cache misses or branch mispredictions. [General Overview of Cache Miss](https://en.wikipedia.org/wiki/Cache_(computing)#CACHE-MISS) [General Overview of Branch Prediction](https://en.wikipedia.org/wiki/Branch_predictor).
 However, it tends to be a challenge to identify which of the events actually causes the performance declines.
 That is why tools such as [Intel Vtune Profiler](https://www.intel.com/content/www/us/en/developer/tools/oneapi/vtune-profiler.html)  are used to give a predefined set of events to use as a reference.
 Through these events, it is possible to narrow down on the hot-spot functions.
@@ -41,7 +41,7 @@ On average, Intel’s CPU frontend is able to allocate, and the backend is able 
 TMA makes the assumption that there are 4 pipelines for each core of the CPU.
 
 ![Diagram of PMU from Intel](./images/pmu.png)
-[^pmu]
+[^1]
 
 ### **Pipeline Stalling**
 
@@ -81,7 +81,7 @@ This micro operation is then executed in the execute stage.
 Data is read during the memory stage and, if required, the memory is then committed in the writeback stage.
 The writeback and the memory stage can technically be combined into a single process, since it can be generalized to load and store memory.
 
-![alt text](./images/writeback.png)
+![Timing Diagrams of Single Cycle and Pipelined Processor ](./images/writeback.png)
 
 A pipeline stage can be fetching instructions while another pipeline stage decodes or executes another instruction.
 In essence, multiple instructions can be processed at once.
@@ -354,18 +354,18 @@ A few ways to prevent these issues:
 
 - In C++, there are also branch hint annotations, which can guide the compiler’s optimization of the instruction layout.
 
-<details> 
-   <summary><b>Example: C++ Branch Hint Annotations</b></summary>
-  
-  ```cpp
-  if (is_valid) [[likely]] {
-      // High-performance hot path
-  } else [[unlikely]] {
-      // Less-likely cold path (error handling)
-  }
-  ```
+  <details> 
+    <summary><b>Example: C++ Branch Hint Annotations</b></summary>
 
-</details>
+     ```cpp
+    if (is_valid) [[likely]] {
+        // High-performance hot path
+    } else [[unlikely]] {
+        // Less-likely cold path (error handling)
+    }
+    ```
+
+  </details>
 
 ---
 
@@ -446,7 +446,7 @@ Among these, Parca stands out as a great open-source option.
 Over the years, processor speed has increased significantly, while memory speed hasn’t improved much.
 Memory latency has been introduced due to the memory performance falling behind.
 
-![alt text](./images/memory_graph.png)
+![Increasing gap in memory performance](./images/memory_graph.png)
 
 ### **How Memory Latency is Addressed**
 
@@ -1118,6 +1118,8 @@ Wikipedia contributors. (n.d.). "Cache (computing)." *Wikipedia, The Free Encycl
 Yasin, A. (2020). *A Top-Down Method for Performance Analysis and Counters Architecture*. arXiv:2004.05628 [cs.PF]. https://arxiv.org/abs/2004.05628
 
 Figure citations:
+
+[^1]: Intel Corporation, “Top-down Microarchitecture Analysis Method,” Intel® VTune™ Profiler Performance Analysis Cookbook, May 19, 2023. [Online]. Available: https://www.intel.com/content/www/us/en/docs/vtune-profiler/cookbook/2023-0/top-down-microarchitecture-analysis-method.html
 
 pipeline.png  
 Figure: Five-stage pipeline diagram. Source: Poil, "Instruction scheduling using a 5 stages pipeline," *Wikimedia Commons*. [Online]. Available: https://commons.wikimedia.org/wiki/File:Fivestagespipeline.png
