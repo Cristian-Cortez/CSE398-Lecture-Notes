@@ -138,69 +138,7 @@ At the top level, TMA groups pipeline slots into four buckets.
 
 This breakdown immediately tells you whether you should be thinking about instruction supply (frontend), execution and memory behavior (backend), branch behavior (bad speculation), or whether the core is mostly doing productive work (retiring).
 
-```mermaid
-block-beta
-    columns 32
-    TMA["TMA Slots"]:32
-
-    nonstall["Non-stalled"]:8
-    stall["Stalled"]:24
-
-    retire["Retiring"]:4
-    badspec["Bad Speculation"]:4
-
-    FB["Frontend Bound"]:8
-    BB["Backend Bound"]:16
-
-    Base["Base/ Light micro ops"]:1
-    MS["Microcode  Sequencer"]:3
-
-    BranchMiss["Branch Misprediction"]:2
-    MachineClear["Machine Clears"]:2
-
-    FetchLat["Fetch Latency"]:4
-    FetchBand["Fetch Bandwidth"]:4
-
-    CoreB["Core Bound"]:8
-    MemB["Memory Bound"]:8
-
-    FPArith["FP-Arithmetic"]:2
-    Other["Other"]:1
-    Assists["Assists"]:1
-
-    space:4
-
-    itlb["iTLB Miss"]:2
-    icache["i-Cache Miss"]:1
-    branchrest["Branch Resteers"]:1
-
-    fetchsrc1["Fetch src 1"]:2
-    fetchsrc2["Fetch src 2"]:2
-
-    divider["Divider"]:2
-    EPU["Execution Ports Utilization"]:6
-
-    StoreB["Store Bound"]:1
-    L1B["L1 Bound"]:1
-    L2B["L2 Bound"]:1
-    LNB["... Ln Bound"]:1
-
-    EMB["Ext. Memory Bound"]:4
-
-    Scal["Scalar"]:1
-    Vec["Vector"]:1
-
-    space:16
-
-    threePorts["3+ ports"]:2
-    halfPorts["1/2 ports"]:2
-    zeroPorts["0 ports"]:2
-
-    space:4
-
-    MemBand["MEM Bandwidth"]:2
-    MemLat["MEM Latency"]:2
-```
+![TMA Hierarchy Chart](./images/tma.png)[^10]
 
 ---
 
@@ -1138,3 +1076,5 @@ Yasin, A. (2020). *A Top-Down Method for Performance Analysis and Counters Archi
 [^8]: B. Gregg, “CPU Flame Graphs.” [Online]. Available: https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html
 
 [^9]: C. Curtsinger and E. D. Berger, “Coz: Finding Code that Counts with Causal Profiling,” in Proc. 25th Symposium on Operating Systems Principles (SOSP), 2015. [Online]. Available: https://doi.org/10.1145/2815400.2815409
+
+[^10]: Intel. “Intel® 64 and IA-32 Architectures Software Developer’s Manual Combined Volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4.” Intel, 2023 [Online]. Available: https://www.intel.com/content/www/us/en/content-details/782158/intel-64-and-ia-32-architectures-software-developer-s-manual-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html?wapkw=intel%2064%20and%20ia-32%20architectures%20software%20developer%27s%20manual&docid=782158 
