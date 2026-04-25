@@ -531,7 +531,7 @@ tbb::parallel_for(
 ); 
 ```
 
-(Intel oneTBB guide)[https://www.intel.com/content/www/us/en/docs/onetbb/get-started-guide/2022-2/overview.html]
+[Intel oneTBB guide](https://www.intel.com/content/www/us/en/docs/onetbb/get-started-guide/2022-2/overview.html)
 
 ### **Shared Structures**
 
