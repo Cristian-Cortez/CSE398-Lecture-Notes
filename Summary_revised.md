@@ -5,7 +5,7 @@ Jake Bernardi | jpbernardi2727@gmail.com
 
 Cristian Cortez | cortezc041204@gmail.com 
 
-Kyum Min Lee | kyl224@lehigh.edu
+Kyum Min Lee | kyummin90@gmail.com
 
 # Diagnosing Performance Bugs
 
